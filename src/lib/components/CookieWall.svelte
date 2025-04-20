@@ -2,128 +2,128 @@
   import { onMount } from 'svelte';
   import { writable } from 'svelte/store';
   
-  // Lokaler Store für die Cookie-Zustimmung
+  // Local store for cookie consent
   const cookieConsentGiven = writable<boolean>(false);
   
-  // Cookie-Optionen mit verschiedenen satirischen Kategorien
+  // Cookie options with various satirical categories
   const cookieOptions = [
     { 
       id: 'essential', 
-      name: 'Essentielle Cookies™', 
-      description: 'Diese Cookies sind absolut notwendig, weil wir es so definiert haben.',
+      name: 'Essential Cookies™', 
+      description: 'These cookies are absolutely necessary because we defined them that way.',
       required: true,
       checked: true 
     },
     { 
       id: 'marketing', 
       name: 'Marketing Cookies®', 
-      description: 'Sammelt Daten über Ihre gesamte Online-Präsenz, einschließlich Ihrer Gedanken über Marketing.',
+      description: 'Collects data about your entire online presence, including your thoughts about marketing.',
       required: false,
       checked: false 
     },
     { 
       id: 'partner', 
       name: 'Partner Cookies™', 
-      description: 'Teilt Ihre Daten mit 248 "vertrauenswürdigen" Partnern, deren Namen wir aus rechtlichen Gründen nicht nennen können.',
+      description: 'Shares your data with 248 "trusted" partners whose names we cannot disclose for legal reasons.',
       required: false,
       checked: false 
     },
     { 
       id: 'tracking', 
       name: 'IP-Tracking©', 
-      description: 'Verfolgt Ihre IP-Adresse und schätzt den Abstand zu Ihrem Kühlschrank auf 3 Meter genau.',
+      description: 'Tracks your IP address and estimates the distance to your refrigerator within 3 meters accuracy.',
       required: false,
       checked: false 
     },
     { 
       id: 'trademark', 
       name: 'Trademark-Tracking℠', 
-      description: 'Erkennt, wenn Sie geschützte Marken aussprechen, auch wenn Ihr Mikrofon ausgeschaltet ist.',
+      description: 'Detects when you speak protected trademarks, even when your microphone is turned off.',
       required: false,
       checked: false 
     },
     { 
       id: 'performance', 
       name: 'Performance Cookies☐', 
-      description: 'Macht Ihre Website langsamer, damit Sie Zeit haben, Kaffee zu holen, während Sie auf das Laden warten.',
+      description: 'Makes your website slower so you have time to get coffee while waiting for it to load.',
       required: false,
       checked: false 
     },
     { 
       id: 'analytics', 
       name: 'Analytics Cookies®', 
-      description: 'Analysiert Ihre Klicks und versucht zu erraten, was Sie zum Frühstück hatten.',
+      description: 'Analyzes your clicks and tries to guess what you had for breakfast.',
       required: false,
       checked: false 
     },
     { 
       id: 'ai', 
-      name: 'KI-Datensammlung™', 
-      description: 'Trainiert eine KI, die Ihre Online-Persönlichkeit nachahmt und gelegentlich in Ihrem Namen einkauft.',
+      name: 'AI Data Collection™', 
+      description: 'Trains an AI that mimics your online personality and occasionally shops on your behalf.',
       required: false,
       checked: false 
     },
     { 
       id: 'sound', 
-      name: 'Akustische Analyse™', 
-      description: 'Analysiert Hintergrundgeräusche, um Ihre Musikvorlieben und das Wetter bei Ihnen zu bestimmen.',
+      name: 'Acoustic Analysis™', 
+      description: 'Analyzes background noises to determine your music preferences and local weather.',
       required: false,
       checked: false 
     },
     { 
       id: 'psychology', 
-      name: 'Psychologische Profile®', 
-      description: 'Erstellt ein psychologisches Profil basierend auf Ihrer Cursor-Bewegung und der Zeit, die Sie zum Lesen dieses Textes brauchen.',
+      name: 'Psychological Profiles®', 
+      description: 'Creates a psychological profile based on your cursor movement and the time it takes you to read this text.',
       required: false,
       checked: false 
     },
     { 
       id: 'future', 
-      name: 'Zukunfts-Cookies²', 
-      description: 'Reserviert das Recht, in der Zukunft entwickelte Tracking-Methoden nachträglich zu aktivieren.',
+      name: 'Future Cookies²', 
+      description: 'Reserves the right to retroactively activate tracking methods developed in the future.',
       required: false,
       checked: false 
     },
     { 
       id: 'gdpr', 
-      name: 'GDPR-Umgehungscookies™', 
-      description: 'Technisch ausgefeilte Cookies, die es uns erlauben zu sagen, dass wir DSGVO-konform sind, ohne es zu sein.',
+      name: 'GDPR Bypass Cookies™', 
+      description: 'Technically sophisticated cookies that allow us to say we are GDPR compliant without actually being compliant.',
       required: false,
       checked: false 
     },
     { 
       id: 'font', 
-      name: 'Font-Präferenz-Cookies®', 
-      description: 'Speichert, welche Schriftarten Sie anschauen, um Rückschlüsse auf Ihren Charakter zu ziehen.',
+      name: 'Font Preference Cookies®', 
+      description: 'Stores which fonts you look at to draw conclusions about your character.',
       required: false,
       checked: false 
     },
     { 
       id: 'dreams', 
-      name: 'Dream-Analytics™', 
-      description: 'Versucht durch Analyse Ihres Browserverhaltens Ihre Träume der letzten Nacht zu rekonstruieren.',
+      name: 'Dream Analytics™', 
+      description: 'Attempts to reconstruct your dreams from last night by analyzing your browsing behavior.',
       required: false,
       checked: false 
     },
     { 
       id: 'legal', 
-      name: 'Legal-Disclaimer-Cookies©', 
-      description: 'Macht alle anderen Cookies legal, indem einfach "legal" ins Label geschrieben wird.',
+      name: 'Legal Disclaimer Cookies©', 
+      description: 'Makes all other cookies legal by simply writing "legal" in the label.',
       required: false,
       checked: false 
     }
   ];
   
-  // Zustände für alle Checkboxen
+  // States for all checkboxes
   let allChecked = false;
   let options = [...cookieOptions];
   
-  // Prüft, ob alle Checkboxen angekreuzt sind
+  // Check if all checkboxes are checked
   $: {
     allChecked = options.every(option => option.checked);
   }
   
-  // Alle Checkboxen umschalten
+  // Toggle all checkboxes
   function toggleAll() {
     options = options.map(option => ({
       ...option,
@@ -132,24 +132,24 @@
     allChecked = !allChecked;
   }
   
-  // Cookie-Zustimmung speichern und Wall schließen
+  // Save cookie consent and close wall
   function acceptCookies() {
-    // Prüfen, ob alle erforderlichen Cookies aktiviert sind
+    // Check if all required cookies are activated
     const requiredChecked = options.every(option => !option.required || option.checked);
     
     if (!requiredChecked) {
-      alert("Bitte stimmen Sie den erforderlichen Cookies zu!");
+      alert("Please consent to the required cookies!");
       return;
     }
     
-    // Speichern der Einwilligung im localStorage
+    // Save consent in localStorage
     if (typeof localStorage !== 'undefined') {
       localStorage.setItem('cookie-consent-given', 'true');
       cookieConsentGiven.set(true);
     }
   }
   
-  // Cookie-Zustimmung ablehnen (alle deaktivieren außer erforderliche)
+  // Reject cookie consent (deactivate all except required ones)
   function rejectCookies() {
     options = options.map(option => ({
       ...option,
@@ -157,7 +157,7 @@
     }));
   }
   
-  // Überprüfe beim Laden, ob die Zustimmung bereits gegeben wurde
+  // Check on load if consent has already been given
   onMount(() => {
     if (typeof localStorage !== 'undefined') {
       const consent = localStorage.getItem('cookie-consent-given');
@@ -166,7 +166,7 @@
       }
     }
     
-    // Für Testzwecke: Cookie-Einwilligung zurücksetzen mit Strg+Alt+R
+    // For testing: Reset cookie consent with Ctrl+Alt+R
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.ctrlKey && e.altKey && e.key === 'r') {
         if (typeof localStorage !== 'undefined') {
@@ -188,15 +188,15 @@
   <div class="cookie-wall">
     <div class="cookie-container">
       <div class="cookie-header">
-        <h2>Cookie-Einwilligung erforderlich</h2>
-        <p>Bitte stimmen Sie der Verwendung von mindestens 15 verschiedenen Arten von Cookies zu, bevor Sie fortfahren können.</p>
+        <h2>Cookie Consent Required</h2>
+        <p>Please consent to the use of at least 15 different types of cookies before you can continue.</p>
       </div>
       
       <div class="cookie-options">
         <div class="select-all-option">
           <label class="checkbox-label">
             <input type="checkbox" bind:checked={allChecked} on:change={toggleAll}>
-            <span class="checkbox-text">Alle auswählen</span>
+            <span class="checkbox-text">Select all</span>
           </label>
         </div>
         
@@ -213,7 +213,7 @@
               </label>
             </div>
             <div class="option-details">
-              <div class="option-name">{option.name} {option.required ? '(Erforderlich)' : ''}</div>
+              <div class="option-name">{option.name} {option.required ? '(Required)' : ''}</div>
               <div class="option-description">{option.description}</div>
             </div>
           </div>
@@ -221,12 +221,12 @@
       </div>
       
       <div class="cookie-notice">
-        <p>Durch Klicken auf "Akzeptieren" stimmen Sie der Verwendung dieser Cookies zu, sowie allen zukünftigen Cookies, die wir uns ausdenken könnten. Die Cookie-Richtlinien können sich jederzeit ändern, insbesondere nach dem Klicken auf "Akzeptieren".</p>
+        <p>By clicking "Accept", you agree to the use of these cookies, as well as any future cookies we might come up with. The cookie policies may change at any time, especially after clicking "Accept".</p>
       </div>
       
       <div class="cookie-buttons">
-        <button class="btn btn-secondary" on:click={rejectCookies}>Nur Erforderliche</button>
-        <button class="btn btn-primary" on:click={acceptCookies}>Akzeptieren</button>
+        <button class="btn btn-secondary" on:click={rejectCookies}>Required Only</button>
+        <button class="btn btn-primary" on:click={acceptCookies}>Accept</button>
       </div>
     </div>
   </div>

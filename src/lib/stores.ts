@@ -6,7 +6,7 @@ export const safeMode = writable<boolean>(false);
 // Compliance Mode Store
 export const complianceMode = writable<boolean>(false);
 
-// Modal Store für Cease & Desist Alert
+// Modal Store for Cease & Desist Alert
 type ModalState = {
   open: boolean;
   title: string;
@@ -44,7 +44,7 @@ const createModalStore = () => {
 
 export const modalStore = createModalStore();
 
-// Scan Results Store für Open-Source Offender
+// Scan Results Store for Open-Source Offender
 export const scanResults = writable<string[]>([]);
 
 // Patent-Pending Watermark Store
@@ -55,14 +55,14 @@ export const buildProgress = writable<number>(0);
 
 // License Whisperer Store
 export const licenseWhispers = writable<string[]>([
-  "Erinnere dich, dass jede Zeile Code, die du schreibst, potenziell patentiert sein könnte.",
-  "Diese Funktion könnte durch 3 Patente geschützt sein. Prüfe vor der Verwendung.",
-  "Hast du die Lizenzvereinbarung vollständig gelesen? Es gibt 24 Anhänge.",
-  "Denk daran: 'Hello World' ist ein geschützter Ausdruck in 14 Jurisdiktionen.",
-  "Die Verwendung von for-Schleifen unterliegt der Corporate Coding Policy §27b.",
-  "Warnung: Die Verwendung von Open-Source-Code kann zu ungewollter Freiheit führen.",
-  "Sind deine Variablennamen ausreichend einzigartig? Prüfe unsere Trademark-Datenbank.",
-  "Fun Fact: Durch das Lesen dieser Nachricht hast du 4 Lizenzvereinbarungen akzeptiert."
+  "Remember that every line of code you write could potentially be patented.",
+  "This function might be protected by 3 patents. Check before use.",
+  "Have you read the license agreement in full? There are 24 appendices.",
+  "Remember: 'Hello World' is a protected expression in 14 jurisdictions.",
+  "The use of for-loops is subject to Corporate Coding Policy §27b.",
+  "Warning: Using open-source code may lead to unwanted freedom.",
+  "Are your variable names unique enough? Check our Trademark database.",
+  "Fun Fact: By reading this message, you've accepted 4 license agreements."
 ]);
 export const currentWhisper = writable<string>("");
 
@@ -76,7 +76,7 @@ export const markedWords = writable<Array<{word: string, marked: boolean}>>([
   { word: "code", marked: false },
   { word: "typescript", marked: false },
   { word: "javascript", marked: false },
-  { word: "entwicklung", marked: false },
+  { word: "development", marked: false },
   { word: "software", marked: false },
   { word: "developer", marked: false }
 ]);

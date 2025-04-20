@@ -5,7 +5,7 @@
   let scanIntervalId: ReturnType<typeof setInterval>;
   let isScanning = false;
   
-  // Aktiviert oder deaktiviert den TrademarkRadar
+  // Activates or deactivates the TrademarkRadar
   function toggleTrademarkRadar() {
     $trademarkRadarActive = !$trademarkRadarActive;
     
@@ -13,21 +13,21 @@
       startScanning();
     } else {
       stopScanning();
-      // Alle markierten Wörter zurücksetzen
+      // Reset all marked words
       resetMarkedWords();
     }
   }
   
-  // Startet den Scan-Prozess für Markenrechte
+  // Starts the scanning process for trademark rights
   function startScanning() {
     if (isScanning) return;
     
     isScanning = true;
     
-    // Erste Prüfung sofort durchführen
+    // Perform initial check immediately
     scanForTrademarkWords();
     
-    // Regelmäßig nach weiteren Markenwörtern suchen (alle 3 Sekunden)
+    // Regularly search for more trademark words (every 3 seconds)
     scanIntervalId = setInterval(() => {
       if ($trademarkRadarActive) {
         scanForTrademarkWords();
@@ -35,18 +35,18 @@
     }, 3000);
   }
   
-  // Stoppt den Scan-Prozess
+  // Stops the scanning process
   function stopScanning() {
     isScanning = false;
     clearInterval(scanIntervalId);
   }
   
-  // Durchsucht das DOM nach potenziell geschützten Wörtern
+  // Searches the DOM for potentially protected words
   function scanForTrademarkWords() {
-    // Liste der zu überwachenden Wörter aus dem Store holen
+    // Get list of words to monitor from the store
     const wordsToScan = $markedWords.map(item => item.word.toLowerCase());
     
-    // Text-Knoten im DOM finden
+    // Find text nodes in DOM
     const walker = document.createTreeWalker(
       document.body,
       NodeFilter.SHOW_TEXT,
@@ -57,7 +57,7 @@
     let foundWords = new Set();
     
     while ((node = walker.nextNode())) {
-      // Ignoriere Script- und Style-Elemente
+      // Ignore Script and Style elements
       const parentElement = node.parentElement;
       if (
         parentElement && 
@@ -73,7 +73,7 @@
       
       const text = node.textContent?.toLowerCase() || '';
       
-      // Prüfe jedes Wort in unserer Liste
+      // Check each word in our list
       wordsToScan.forEach((word, index) => {
         if (text.includes(word)) {
           foundWords.add(index);
@@ -81,35 +81,35 @@
       });
     }
     
-    // Wörter als gefunden markieren
+    // Mark words as found
     $markedWords = $markedWords.map((item, index) => {
       return { ...item, marked: foundWords.has(index) };
     });
   }
   
-  // Setzt alle markierten Wörter zurück
+  // Resets all marked words
   function resetMarkedWords() {
     $markedWords = $markedWords.map(item => ({ ...item, marked: false }));
   }
   
-  // Als Reaktion auf Änderungen am safeMode
+  // In response to changes in safeMode
   $: {
     if ($safeMode && !$trademarkRadarActive) {
-      // SafeMode aktiviert automatisch den Trademark Radar
+      // SafeMode automatically activates the Trademark Radar
       $trademarkRadarActive = true;
       startScanning();
     } else if (!$safeMode && $trademarkRadarActive) {
-      // Wenn SafeMode deaktiviert wird, Radar Status nicht ändern, aber Benutzer kann ihn manuell deaktivieren
+      // If SafeMode is deactivated, don't change Radar status, but user can manually deactivate it
     }
   }
   
   onMount(() => {
-    // Automatisch starten, wenn der TrademarkRadar bereits aktiv ist
+    // Automatically start if TrademarkRadar is already active
     if ($trademarkRadarActive) {
       startScanning();
     }
     
-    // Auf DOM-Änderungen reagieren, um neue Inhalte zu scannen
+    // React to DOM changes to scan new content
     const observer = new MutationObserver((mutations) => {
       if ($trademarkRadarActive) {
         scanForTrademarkWords();
@@ -134,9 +134,9 @@
 
 <div class="trademark-radar">
   <div class="tooltip">
-    <span class="tooltip-text">Aktiviert oder deaktiviert den Markenwort-Radar</span>
+    <span class="tooltip-text">Activates or deactivates the trademark word radar</span>
     <button class="btn" on:click={toggleTrademarkRadar}>
-      {$trademarkRadarActive ? 'Deaktivieren' : 'Aktivieren'}
+      {$trademarkRadarActive ? 'Disable' : 'Enable'}
     </button>
   </div>
 </div>
@@ -145,7 +145,7 @@
   <div class="trademark-findings">
     {#each $markedWords.filter(word => word.marked) as word (word.word)}
       <div class="trademark-word">
-        "{word.word}" gefunden ™
+        "{word.word}" found ™
       </div>
     {/each}
   </div>
