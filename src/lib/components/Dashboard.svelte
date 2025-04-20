@@ -1,7 +1,13 @@
 <script lang="ts">
-  import { safeMode, complianceMode, modalStore, scanResults } from '$lib/stores';
+  import { safeMode, complianceMode, modalStore, scanResults, watermarkEnabled, trademarkRadarActive } from '$lib/stores';
   import Modal from './Modal.svelte';
   import PixelOverlay from './PixelOverlay.svelte';
+  import PendingWatermark from './PendingWatermark.svelte';
+  import LicenseWhisperer from './LicenseWhisperer.svelte';
+  import TrademarkRadar from './TrademarkRadar.svelte';
+  import PRQueue from './PRQueue.svelte';
+  import BuildOverlord from './BuildOverlord.svelte';
+  import DependencyMapper from './DependencyMapper.svelte';
   import { onMount } from 'svelte';
   
   let pixelOverlayComponent: { triggerEffect: () => void };
@@ -54,6 +60,10 @@
     );
   }
   
+  function toggleWatermark() {
+    $watermarkEnabled = !$watermarkEnabled;
+  }
+  
   let trademarkEnabled = false; // Lokale Variable zur Steuerung der Trademark-Anzeige
   
   $: {
@@ -91,6 +101,33 @@
             <span class="slider"></span>
           </label>
         </div>
+      </div>
+    </div>
+    
+    <!-- Patent-Pending Watermark -->
+    <div class="feature-section" class:disabled-by-compliance={$complianceMode}>
+      <div class="feature-info">
+        <h3 class="trademark-text">Patent-Pending Watermark</h3>
+        <p>Zeigt ein bewegliches Patent-Pending Wasserzeichen an</p>
+      </div>
+      <div class="feature-control">
+        <div class="tooltip">
+          <span class="tooltip-text">Aktiviert oder deaktiviert das Patent-Pending Wasserzeichen</span>
+          <button class="btn" on:click={toggleWatermark} disabled={$complianceMode}>
+            {$watermarkEnabled ? 'Deaktivieren' : 'Aktivieren'}
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Trademark Radar -->
+    <div class="feature-section" class:disabled-by-compliance={$complianceMode}>
+      <div class="feature-info">
+        <h3 class="trademark-text">Trademark Radar</h3>
+        <p>Identifiziert potenziell geschützte Wörter auf der Seite</p>
+      </div>
+      <div class="feature-control">
+        <TrademarkRadar />
       </div>
     </div>
     
@@ -169,6 +206,21 @@
     {/if}
   </section>
   
+  <!-- Build Overlord Feature -->
+  {#if !$complianceMode}
+    <BuildOverlord />
+  {/if}
+  
+  <!-- PR Queue Feature -->
+  {#if !$complianceMode}
+    <PRQueue />
+  {/if}
+  
+  <!-- Dependency Patent Mapper Feature -->
+  {#if !$complianceMode}
+    <DependencyMapper />
+  {/if}
+  
   <footer class="panel dashboard-footer">
     <p>© 2025 Dev Mode - Alle Rechte vorbehalten</p>
     <p>Version 0.0.1</p>
@@ -177,6 +229,8 @@
 
 <PixelOverlay bind:this={pixelOverlayComponent} />
 <Modal />
+<PendingWatermark />
+<LicenseWhisperer />
 
 <style lang="scss">
   .dashboard {
@@ -217,5 +271,160 @@
     margin-bottom: 1.5rem;
     padding-bottom: 0.5rem;
     border-bottom: 1px solid #474747;
+  }
+  
+  .feature-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 0;
+    border-bottom: 1px solid #2a2a2a;
+    
+    &:last-child {
+      border-bottom: none;
+    }
+    
+    &.disabled-by-compliance {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+  }
+  
+  .feature-info {
+    flex: 1;
+    
+    h3 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.1rem;
+      color: #0078d4;
+    }
+    
+    p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #a0a0a0;
+    }
+  }
+  
+  .feature-control {
+    min-width: 120px;
+    text-align: right;
+  }
+  
+  .tooltip {
+    position: relative;
+    display: inline-block;
+    
+    .tooltip-text {
+      visibility: hidden;
+      width: 200px;
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      border-radius: 4px;
+      padding: 0.5rem;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      font-size: 0.8rem;
+    }
+    
+    &:hover .tooltip-text {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+  
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    
+    input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 34px;
+      
+      &:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        transition: .4s;
+        border-radius: 50%;
+      }
+    }
+    
+    input:checked + .slider {
+      background-color: #0078d4;
+    }
+    
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+  }
+  
+  .btn {
+    background-color: #0078d4;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    
+    &:hover {
+      background-color: #006abc;
+    }
+    
+    &:disabled {
+      background-color: #555;
+      cursor: not-allowed;
+    }
+  }
+  
+  .scan-results {
+    margin-top: 1rem;
+    background-color: #1e1e1e;
+    border-radius: 4px;
+    padding: 1rem;
+  }
+  
+  .scan-result-item {
+    padding: 0.5rem;
+    border-bottom: 1px solid #333;
+    font-size: 0.9rem;
+    
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+  
+  .panel {
+    background-color: #1c1c1c;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    padding: 2rem;
+    margin-bottom: 2rem;
   }
 </style>
