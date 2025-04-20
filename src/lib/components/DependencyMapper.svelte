@@ -52,6 +52,14 @@
       showPatentDetails(patentId);
     }
   }
+
+  // Tastatur-Handler für die Header-Elemente
+  function handleHeaderKeyDown(event: KeyboardEvent, id: number): void {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      toggleExpand(id);
+    }
+  }
 </script>
 
 <div class="dependency-mapper">
@@ -63,7 +71,15 @@
   <div class="dependencies-container">
     {#each $dependencies as dependency}
       <div class="dependency-item">
-        <div class="dependency-header" on:click={() => toggleExpand(dependency.id)}>
+        <div 
+          class="dependency-header" 
+          on:click={() => toggleExpand(dependency.id)}
+          on:keydown={(e) => handleHeaderKeyDown(e, dependency.id)}
+          role="button"
+          tabindex="0"
+          aria-expanded={dependency.expanded}
+          aria-label="Abhängigkeit: {dependency.name}"
+        >
           <span class="expand-icon">{dependency.expanded ? '▼' : '▶'}</span>
           <span class="dep-name">{dependency.name}</span>
           <span 
@@ -82,7 +98,15 @@
           <div class="children-container">
             {#each dependency.children as child}
               <div class="dependency-item child-item">
-                <div class="dependency-header" on:click={() => toggleExpand(child.id)}>
+                <div 
+                  class="dependency-header" 
+                  on:click={() => toggleExpand(child.id)}
+                  on:keydown={(e) => handleHeaderKeyDown(e, child.id)}
+                  role="button"
+                  tabindex="0"
+                  aria-expanded={child.expanded}
+                  aria-label="Abhängigkeit: {child.name}"
+                >
                   <span class="expand-icon">{child.expanded ? '▼' : '▶'}</span>
                   <span class="dep-name">{child.name}</span>
                   <span 

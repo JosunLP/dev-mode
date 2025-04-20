@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // Variablen für das Dark Theme
 $color-bg: #1e1e1e;
 $color-panel: #252526;
@@ -80,7 +82,7 @@ h1, h2, h3, h4, h5, h6 {
   transition: all 0.2s ease;
   
   &:hover {
-    background-color: lighten($color-panel-light, 5%);
+    background-color: color.adjust($color-panel-light, $lightness: 5%);
   }
   
   &:active {
@@ -98,10 +100,10 @@ h1, h2, h3, h4, h5, h6 {
   
   &.btn-error {
     background-color: $color-error;
-    border-color: darken($color-error, 5%);
+    border-color: color.adjust($color-error, $lightness: -5%);
     
     &:hover {
-      background-color: lighten($color-error, 5%);
+      background-color: color.adjust($color-error, $lightness: 5%);
     }
   }
 
@@ -488,7 +490,7 @@ body.patent-pending {
     right: 0;
     bottom: 0;
     clip-path: polygon(50% 50%, 50% 0, 100% 0, 100% 100%, 0 100%, 0 0, 50% 0);
-    background: linear-gradient(90deg, transparentize($color-primary, 0.9), transparentize($color-primary, 0.7));
+    background: linear-gradient(90deg, color.adjust($color-primary, $alpha: -0.9), color.adjust($color-primary, $alpha: -0.7));
     transform-origin: center center;
     animation: radar-sweep 4s linear infinite;
   }
@@ -553,7 +555,7 @@ body.patent-pending {
       cursor: pointer;
       
       &:hover {
-        background-color: darken($color-panel-light, 5%);
+        background-color: color.adjust($color-panel-light, $lightness: -5%);
       }
       
       .toggle-icon {

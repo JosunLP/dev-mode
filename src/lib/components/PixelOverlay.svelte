@@ -5,10 +5,11 @@
   let ctx: CanvasRenderingContext2D;
   let animationId: number;
   let effectActive = false;
+  let isBrowser = false;
   
   // Für den Export als Komponenten-API
   export function triggerEffect() {
-    if (effectActive) return;
+    if (!isBrowser || effectActive) return;
     startEffect();
     
     // Effekt nach einigen Sekunden automatisch beenden
@@ -20,7 +21,7 @@
   }
   
   function startEffect() {
-    if (effectActive) return;
+    if (!isBrowser || effectActive) return;
     effectActive = true;
     
     // Canvas Größe an Viewport anpassen
@@ -43,14 +44,14 @@
   }
   
   function resizeCanvas() {
-    if (!canvasElement) return;
+    if (!isBrowser || !canvasElement) return;
     
     canvasElement.width = window.innerWidth;
     canvasElement.height = window.innerHeight;
   }
   
   function animatePixels() {
-    if (!canvasElement || !ctx || !effectActive) return;
+    if (!isBrowser || !canvasElement || !ctx || !effectActive) return;
     
     // Aktuelles Canvas leeren
     ctx.clearRect(0, 0, canvasElement.width, canvasElement.height);
@@ -90,6 +91,9 @@
   }
   
   onMount(() => {
+    // Setzen wir den Browser-Flag, da onMount nur im Browser ausgeführt wird
+    isBrowser = true;
+    
     if (canvasElement) {
       ctx = canvasElement.getContext('2d')!;
       
@@ -105,6 +109,8 @@
   });
   
   onDestroy(() => {
+    if (!isBrowser) return;
+    
     if (animationId) {
       cancelAnimationFrame(animationId);
     }

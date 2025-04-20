@@ -9,9 +9,12 @@
   let offsetX = 0;
   let offsetY = 0;
   let moveIntervalId: ReturnType<typeof setInterval>;
+  let isBrowser = false;
   
   // Automatische Bewegung des Wasserzeichens in zufälligen Intervallen
   function setupRandomMovement() {
+    if (!isBrowser) return;
+    
     // Zufällige Bewegung alle 5-10 Sekunden
     moveIntervalId = setInterval(() => {
       if ($watermarkEnabled && !isDragging) {
@@ -21,6 +24,8 @@
   }
   
   function moveToRandomPosition() {
+    if (!isBrowser) return;
+    
     // Maximale Koordinaten basierend auf Viewport
     const maxX = window.innerWidth - 200; // Abzüglich Wasserzeichen-Breite
     const maxY = window.innerHeight - 100; // Abzüglich Wasserzeichen-Höhe
@@ -65,7 +70,7 @@
   
   // Drag & Drop Funktionen
   function handleMouseDown(event: MouseEvent) {
-    if (!$watermarkEnabled) return;
+    if (!$watermarkEnabled || !isBrowser) return;
     
     isDragging = true;
     offsetX = event.clientX - x;
@@ -102,6 +107,9 @@
   }
   
   onMount(() => {
+    // Browser-Flag setzen, da onMount nur im Browser läuft
+    isBrowser = true;
+    
     // Event-Handler für Drag & Drop
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('mouseup', handleMouseUp);
@@ -114,6 +122,8 @@
   });
   
   onDestroy(() => {
+    if (!isBrowser) return;
+    
     window.removeEventListener('mousemove', handleMouseMove);
     window.removeEventListener('mouseup', handleMouseUp);
     clearInterval(moveIntervalId);
@@ -126,6 +136,10 @@
     class="patent-pending-watermark"
     style="left: {x}px; top: {y}px;"
     on:mousedown={handleMouseDown}
+    on:keydown={(e) => e.key === 'Escape' && ($watermarkEnabled = false)}
+    tabindex="0"
+    role="button"
+    aria-label="Patent Pending Wasserzeichen (ziehbar)"
   >
     <div class="watermark-text">
       PATENT<br>PENDING

@@ -1,24 +1,53 @@
 <script lang="ts">
   import { modalStore } from '$lib/stores';
   import { fade, fly } from 'svelte/transition';
+  import { onMount } from 'svelte';
+
+  let modalElement: HTMLDivElement;
 
   function closeModal() {
     modalStore.close();
   }
+  
+  function handleKeydown(e: KeyboardEvent) {
+    if (e.key === 'Escape') {
+      closeModal();
+    }
+  }
+  
+  onMount(() => {
+    if (modalElement) {
+      modalElement.focus();
+    }
+  });
 </script>
 
 {#if $modalStore.open}
   <!-- Overlay -->
-  <div class="modal-overlay" on:click={closeModal} transition:fade={{ duration: 200 }}>
+  <div 
+    class="modal-overlay" 
+    on:click={closeModal}
+    on:keydown={handleKeydown}
+    role="dialog"
+    aria-modal="true"
+    transition:fade={{ duration: 200 }}
+  >
     <!-- Modal Content -->
     <div 
       class="modal-content" 
+      bind:this={modalElement}
       transition:fly={{ y: -30, duration: 300 }}
       on:click|stopPropagation={() => {}}
+      tabindex="-1"
+      aria-labelledby="modal-title"
     >
       <div class="modal-header">
-        <h2 class="trademark-text">{$modalStore.title}</h2>
-        <button class="modal-close" on:click={closeModal}>&times;</button>
+        <h2 id="modal-title" class="trademark-text">{$modalStore.title}</h2>
+        <button 
+          class="modal-close" 
+          on:click={closeModal} 
+          aria-label="Schließen"
+        >&times;</button>
       </div>
       
       <div class="modal-body">

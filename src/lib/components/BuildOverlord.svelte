@@ -49,7 +49,16 @@
     <span class="build-icon">🏗️</span> Build Status
   </div>
   
-  <div class="progress-container" on:mouseenter={showTooltip}>
+  <div 
+    class="progress-container" 
+    on:mouseenter={showTooltip}
+    on:keydown={(e) => e.key === 'Enter' && showTooltip()}
+    role="progressbar" 
+    aria-valuenow={Math.round($buildProgress)} 
+    aria-valuemin="0" 
+    aria-valuemax="100"
+    tabindex="0"
+  >
     <div class="progress-bar" style="width: {$buildProgress}%"></div>
     {#if tooltipVisible}
       <div class="tooltip-text">Der Build wird niemals abgeschlossen.</div>
