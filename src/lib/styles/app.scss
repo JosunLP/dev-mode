@@ -1,0 +1,355 @@
+// Variablen für das Dark Theme
+$color-bg: #1e1e1e;
+$color-panel: #252526;
+$color-panel-light: #333333;
+$color-border: #474747;
+$color-text: #e0e0e0;
+$color-text-secondary: #a0a0a0;
+$color-primary: #0078d4;
+$color-primary-hover: #2b88d8;
+$color-error: #f14c4c;
+$color-warning: #cca700;
+$color-success: #47b352;
+
+// Schriftarten
+$font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+
+// Reset und Basis-Stile
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  font-family: $font-family;
+  font-size: 14px;
+  line-height: 1.5;
+  background-color: $color-bg;
+  color: $color-text;
+}
+
+// Links
+a {
+  color: $color-primary;
+  text-decoration: none;
+  
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// Überschriften
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+// Container und Layout
+.container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+// Dashboard-Panel
+.panel {
+  background-color: $color-panel;
+  border-radius: 6px;
+  border: 1px solid $color-border;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+// Buttons
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $color-panel-light;
+  color: $color-text;
+  border: 1px solid $color-border;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background-color: lighten($color-panel-light, 5%);
+  }
+  
+  &:active {
+    transform: translateY(1px);
+  }
+  
+  &.btn-primary {
+    background-color: $color-primary;
+    border-color: $color-primary;
+    
+    &:hover {
+      background-color: $color-primary-hover;
+    }
+  }
+  
+  &.btn-error {
+    background-color: $color-error;
+    border-color: darken($color-error, 5%);
+    
+    &:hover {
+      background-color: lighten($color-error, 5%);
+    }
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}
+
+// Switch/Toggle
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+  
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    
+    &:checked + .slider {
+      background-color: $color-primary;
+      
+      &:before {
+        transform: translateX(20px);
+      }
+    }
+    
+    &:focus + .slider {
+      box-shadow: 0 0 1px $color-primary;
+    }
+    
+    &:disabled + .slider {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: $color-panel-light;
+    transition: .3s;
+    border-radius: 20px;
+    
+    &:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 2px;
+      bottom: 2px;
+      background-color: white;
+      transition: .3s;
+      border-radius: 50%;
+    }
+  }
+}
+
+// Feature-Section
+.feature-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+  border-bottom: 1px solid $color-border;
+  
+  &:last-child {
+    border-bottom: none;
+  }
+  
+  .feature-info {
+    flex: 1;
+    
+    h3 {
+      margin-bottom: 0.25rem;
+    }
+    
+    p {
+      color: $color-text-secondary;
+      margin: 0;
+    }
+  }
+  
+  .feature-control {
+    margin-left: 1rem;
+  }
+}
+
+// Tooltips
+.tooltip {
+  position: relative;
+  
+  .tooltip-text {
+    visibility: hidden;
+    width: 200px;
+    background-color: $color-panel-light;
+    color: $color-text;
+    text-align: center;
+    border-radius: 6px;
+    padding: 0.5rem;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -100px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    border: 1px solid $color-border;
+    font-size: 12px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  &:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+// Scan Results
+.scan-results {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  font-family: monospace;
+  
+  .scan-result-item {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid $color-border;
+    color: $color-error;
+    
+    &:last-child {
+      border-bottom: none;
+    }
+    
+    &::before {
+      content: "⚠️ ";
+      margin-right: 0.5rem;
+    }
+  }
+}
+
+// Safe Mode
+.safe-mode {
+  .trademark-text::after {
+    content: "™";
+    font-size: 0.7em;
+    vertical-align: super;
+    margin-left: 2px;
+  }
+}
+
+// Compliance Mode
+body.compliance-mode {
+  .app-container {
+    filter: grayscale(1) brightness(0.9);
+    font-family: "Times New Roman", serif;
+  }
+  
+  .btn:not(.btn-primary) {
+    opacity: 0.7;
+  }
+  
+  .feature-info p {
+    font-style: italic;
+  }
+  
+  .panel {
+    border: 2px solid $color-border;
+  }
+
+  .disabled-by-compliance {
+    position: relative;
+    pointer-events: none;
+    
+    &::after {
+      content: "Disabled by Corporate Compliance";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $color-error;
+      font-weight: bold;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+  }
+}
+
+// Pixel Randomizer Overlay
+.pixel-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.1' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  
+  &.active {
+    animation: glitch 0.8s ease forwards;
+  }
+}
+
+@keyframes glitch {
+  0% {
+    opacity: 0;
+    transform: translateX(0);
+    background-color: rgba(255, 0, 0, 0.1);
+  }
+  10% {
+    opacity: 1;
+    transform: translateX(-5px);
+    background-color: rgba(0, 255, 0, 0.1);
+  }
+  20% {
+    transform: translateX(5px);
+    background-color: rgba(0, 0, 255, 0.1);
+  }
+  30% {
+    transform: translateY(-5px);
+    background-color: rgba(255, 255, 0, 0.1);
+  }
+  40% {
+    transform: translateY(5px);
+    background-color: rgba(0, 255, 255, 0.1);
+  }
+  50% {
+    transform: translateX(0);
+    background-color: rgba(255, 0, 255, 0.1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.05);
+    background-color: transparent;
+  }
+}
