@@ -2,6 +2,7 @@
   import '$lib/styles/app.scss';
   import { onMount } from 'svelte';
   import { complianceMode, safeMode, modalStore } from '$lib/stores';
+  import CookieWall from '$lib/components/CookieWall.svelte';
   
   // Zufälliges Auslösen des Cease & Desist Alerts
   onMount(() => {
@@ -27,17 +28,27 @@
       document.body.classList.remove('compliance-mode');
     }
   }
+  
+  // Safe Mode Klasse auf body setzen
+  $: if (typeof document !== 'undefined') {
+    if ($safeMode) {
+      document.body.classList.add('safe-mode');
+    } else {
+      document.body.classList.remove('safe-mode');
+    }
+  }
 </script>
 
-<div class="app-container" class:safe-mode={$safeMode}>
+<div class="app-container">
   <slot />
 </div>
 
+<CookieWall />
+
 <style lang="scss">
   .app-container {
-    display: flex;
-    flex-direction: column;
     min-height: 100vh;
-    width: 100%;
+    background-color: #1e1e1e;
+    position: relative;
   }
 </style>

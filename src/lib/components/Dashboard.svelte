@@ -104,6 +104,20 @@
       </div>
     </div>
     
+    <!-- Experimental Feature Link -->
+    <div class="feature-section" class:disabled-by-compliance={$complianceMode}>
+      <div class="feature-info">
+        <h3 class="trademark-text">Experimentelle Features</h3>
+        <p>Entdecken Sie unsere neuesten Entwicklungen im experimentellen Bereich</p>
+      </div>
+      <div class="feature-control">
+        <div class="tooltip">
+          <span class="tooltip-text">Navigiert zu experimentellen Features (möglicherweise nicht verfügbar)</span>
+          <a href="/experimental" class="btn">Entdecken</a>
+        </div>
+      </div>
+    </div>
+    
     <!-- Patent-Pending Watermark -->
     <div class="feature-section" class:disabled-by-compliance={$complianceMode}>
       <div class="feature-info">
