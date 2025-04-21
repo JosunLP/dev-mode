@@ -18,19 +18,19 @@
     return text;
   }
   
-  // Start Offender scan
+  // Start offender scan
   function startScan() {
     scanning = true;
     
     // Mock results for the Open-Source Offender
     const possibleResults = [
-      "Found: Unauthorized use of an MIT license on line 42!",
+      "Found: Unauthorized use of MIT license in line 42!",
       "Warning: GPL virus detected in dependency 'svelte-awesome'!",
-      "Critical: Undetected NPM packages violate Corporate Guidelines",
-      "Notice: License conflict - Coffee not GPL-compatible.",
+      "Critical: Undiscovered NPM packages violate Corporate Guidelines",
+      "Note: License conflict – coffee not GPL-compatible.",
       "Error: SvelteKit 'product-grade' license not found",
       "Alert: Unlicensed code sections identified in directory '/src/lib'",
-      "Conflict: Use of Open-Source with proprietary code",
+      "Conflict: Use of open-source with proprietary code",
       "Critical: Undocumented dependencies without license information"
     ];
     
@@ -39,7 +39,7 @@
     const shuffled = [...possibleResults].sort(() => 0.5 - Math.random());
     const selectedResults = shuffled.slice(0, resultCount);
     
-    // After a short delay, show the results
+    // Show results after a short delay
     setTimeout(() => {
       scanning = false;
       scanResults.set(selectedResults);
@@ -55,7 +55,7 @@
   function triggerCeaseAndDesist() {
     modalStore.open(
       'Cease & Desist!', 
-      'Unauthorized activity detected. You are illegally using innovative features. Please cease all further innovation and contact the legal department.', 
+      'Unauthorized activity detected. You are illegally using innovative features. Please refrain from any further innovation and contact the legal department.', 
       false
     );
   }
@@ -108,7 +108,7 @@
     <div class="feature-section" class:disabled-by-compliance={$complianceMode}>
       <div class="feature-info">
         <h3 class="trademark-text">Experimental Features</h3>
-        <p>Discover our latest developments in experimental areas</p>
+        <p>Discover our latest developments in the experimental area</p>
       </div>
       <div class="feature-control">
         <div class="tooltip">
@@ -126,9 +126,9 @@
       </div>
       <div class="feature-control">
         <div class="tooltip">
-          <span class="tooltip-text">Enables or disables the Patent-Pending watermark</span>
+          <span class="tooltip-text">Activates or deactivates the Patent-Pending watermark</span>
           <button class="btn" on:click={toggleWatermark} disabled={$complianceMode}>
-            {$watermarkEnabled ? 'Disable' : 'Enable'}
+            {$watermarkEnabled ? 'Deactivate' : 'Activate'}
           </button>
         </div>
       </div>
@@ -165,7 +165,7 @@
     <div class="feature-section" class:disabled-by-compliance={$complianceMode}>
       <div class="feature-info">
         <h3 class="trademark-text">Cease & Desist Alert</h3>
-        <p>Test our automatic warning notifications</p>
+        <p>Test our automatic warning messages</p>
       </div>
       <div class="feature-control">
         <div class="tooltip">
@@ -181,11 +181,11 @@
     <div class="feature-section">
       <div class="feature-info">
         <h3 class="trademark-text">Corporate Compliance Mode</h3>
-        <p>Ensure compliance with company policies</p>
+        <p>Ensure compliance with corporate guidelines</p>
       </div>
       <div class="feature-control">
         <div class="tooltip">
-          <span class="tooltip-text">Activates the corporate compliant mode</span>
+          <span class="tooltip-text">Activates corporate compliance mode</span>
           <label class="switch">
             <input type="checkbox" bind:checked={$complianceMode}>
             <span class="slider"></span>

@@ -2,7 +2,7 @@
   import { dependencies } from '$lib/stores';
   import { onMount } from 'svelte';
   
-  // Toggle der Erweiterung einer Dependency
+  // Toggle the expansion of a dependency
   function toggleExpand(id: number) {
     $dependencies = $dependencies.map(dep => {
       if (dep.id === id) {
@@ -15,7 +15,7 @@
     });
   }
   
-  // Rekursiv durch den Abhängigkeitsbaum traversieren, um Expansion zu aktualisieren
+  // Recursively traverse the dependency tree to update expansion
   function updateChildExpansion(children: any[], id: number): any[] {
     return children.map(child => {
       if (child.id === id) {
@@ -27,25 +27,25 @@
     });
   }
   
-  // Generiert eine zufällige Lizenzwarnung
+  // Generate a random license warning
   function getRandomLicenseWarning() {
     const warnings = [
-      "Möglicher Lizenzverstoß",
-      "Patentrisiko",
-      "Rechtlicher Prüfbedarf",
-      "Lizenzkonflikt",
-      "Nutzung eingeschränkt"
+      "Possible License Violation",
+      "Patent Risk",
+      "Legal Review Required",
+      "License Conflict",
+      "Usage Restricted"
     ];
     
     return warnings[Math.floor(Math.random() * warnings.length)];
   }
   
-  // Zeigt detaillierte Patent-Informationen an
+  // Show detailed patent information
   function showPatentDetails(patentId: string) {
-    alert(`Patentdetails für ${patentId}\n\nStatus: Aktiv\nAnmelder: Tech Corp.\nAnmeldedatum: 15.03.2025\nBeschreibung: Ein umfassendes Patent für Software-Abhängigkeiten und deren Verwaltung in modernen Webanwendungen.\n\nWARNUNG: Die Nutzung ohne Lizenzierung kann rechtliche Konsequenzen haben.`);
+    alert(`Patent Details for ${patentId}\n\nStatus: Active\nApplicant: Tech Corp.\nFiling Date: 03/15/2025\nDescription: A comprehensive patent for software dependencies and their management in modern web applications.\n\nWARNING: Use without licensing may have legal consequences.`);
   }
 
-  // Tastatur-Handler für die Patent-ID-Elemente
+  // Keyboard handler for patent ID elements
   function handleKeyDown(event: KeyboardEvent, patentId: string): void {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
@@ -53,7 +53,7 @@
     }
   }
 
-  // Tastatur-Handler für die Header-Elemente
+  // Keyboard handler for header elements
   function handleHeaderKeyDown(event: KeyboardEvent, id: number): void {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
@@ -65,7 +65,7 @@
 <div class="dependency-mapper">
   <div class="mapper-header">
     <h3>Dependency Patent Mapper</h3>
-    <p class="mapper-subtitle">Identifiziere patentierte Abhängigkeiten in deinem Projekt</p>
+    <p class="mapper-subtitle">Identify patented dependencies in your project</p>
   </div>
   
   <div class="dependencies-container">
@@ -78,7 +78,7 @@
           role="button"
           tabindex="0"
           aria-expanded={dependency.expanded}
-          aria-label="Abhängigkeit: {dependency.name}"
+          aria-label="Dependency: {dependency.name}"
         >
           <span class="expand-icon">{dependency.expanded ? '▼' : '▶'}</span>
           <span class="dep-name">{dependency.name}</span>
@@ -105,7 +105,7 @@
                   role="button"
                   tabindex="0"
                   aria-expanded={child.expanded}
-                  aria-label="Abhängigkeit: {child.name}"
+                  aria-label="Dependency: {child.name}"
                 >
                   <span class="expand-icon">{child.expanded ? '▼' : '▶'}</span>
                   <span class="dep-name">{child.name}</span>
@@ -152,8 +152,8 @@
   </div>
   
   <div class="patent-disclaimer">
-    <p>Dieses Tool wurde mit 24 Patenten durch die Patentverwertungsgesellschaft Patent Inc. geschützt.</p>
-    <p class="disclaimer-small">Die Nutzung dieses Tools impliziert die Zustimmung zur Zahlung von Lizenzgebühren.</p>
+    <p>This tool is protected by 24 patents through the Patent Exploitation Company Patent Inc.</p>
+    <p class="disclaimer-small">Using this tool implies consent to pay licensing fees.</p>
   </div>
 </div>
 

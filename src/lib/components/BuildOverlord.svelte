@@ -6,11 +6,11 @@
   let tooltipVisible = false;
   let tooltipTimeout: ReturnType<typeof setTimeout>;
   
-  // Diese Funktion sorgt dafür, dass der Build-Fortschritt nie 100% erreicht
+  // This function ensures that the build progress never reaches 100%
   function updateBuildProgress() {
     $buildProgress += Math.random() * 2;
     
-    // Wenn der Fortschritt zu nahe an 100% kommt, setzen wir ihn zurück
+    // If the progress gets too close to 100%, we reset it
     if ($buildProgress > 98) {
       $buildProgress = Math.max(90, $buildProgress - Math.random() * 15);
     }
@@ -30,10 +30,10 @@
   }
   
   onMount(() => {
-    // Initialer Fortschritt
+    // Initial progress
     $buildProgress = 45 + Math.random() * 20;
     
-    // Fortschritt langsam erhöhen
+    // Slowly increase progress
     intervalId = setInterval(updateBuildProgress, 2000);
   });
   
@@ -61,27 +61,27 @@
   >
     <div class="progress-bar" style="width: {$buildProgress}%"></div>
     {#if tooltipVisible}
-      <div class="tooltip-text">Der Build wird niemals abgeschlossen.</div>
+      <div class="tooltip-text">The build will never complete.</div>
     {/if}
   </div>
   
   <div class="build-info">
     <div class="build-label">
       {#if $buildProgress < 60}
-        Baue Abhängigkeiten...
+        Building dependencies...
       {:else if $buildProgress < 75}
-        Transformiere Code...
+        Transforming code...
       {:else if $buildProgress < 90}
-        Optimiere Bundle...
+        Optimizing bundle...
       {:else}
-        Abschlussarbeiten... (noch ein paar Minuten)
+        Finalizing... (a few more minutes)
       {/if}
     </div>
     <div class="build-percent">{$buildProgress.toFixed(1)}%</div>
   </div>
   
   <div style="margin-top: 1rem; text-align: center;">
-    <button class="btn" on:click={resetBuild}>Build neu starten</button>
+    <button class="btn" on:click={resetBuild}>Restart Build</button>
   </div>
 </div>
 

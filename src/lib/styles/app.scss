@@ -1,6 +1,6 @@
 @use "sass:color";
 
-// Variablen für das Dark Theme
+// Variables for the Dark Theme
 $color-bg: #1e1e1e;
 $color-panel: #252526;
 $color-panel-light: #333333;
@@ -13,10 +13,10 @@ $color-error: #f14c4c;
 $color-warning: #cca700;
 $color-success: #47b352;
 
-// Schriftarten
+// Fonts
 $font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
 
-// Reset und Basis-Stile
+// Reset and Base Styles
 * {
   box-sizing: border-box;
   margin: 0;
@@ -42,13 +42,13 @@ a {
   }
 }
 
-// Überschriften
+// Headings
 h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
   margin-bottom: 0.5rem;
 }
 
-// Container und Layout
+// Container and Layout
 .container {
   max-width: 1200px;
   width: 100%;
@@ -56,7 +56,7 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0 1rem;
 }
 
-// Dashboard-Panel
+// Dashboard Panel
 .panel {
   background-color: $color-panel;
   border-radius: 6px;
@@ -169,7 +169,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-// Feature-Section
+// Feature Section
 .feature-section {
   display: flex;
   align-items: center;

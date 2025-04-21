@@ -3,19 +3,19 @@
   import { prQueue } from '$lib/stores';
   import { onMount, onDestroy } from 'svelte';
   
-  // Erstelle lokale Stores für die fehlenden Store-Variablen
+  // Create local stores for the missing store variables
   const prQueueEnabled = writable<boolean>(true);
   const pullRequests = writable<any[]>([]);
   
   let prAddIntervalId: ReturnType<typeof setInterval>;
   let lastPrId = 0;
   
-  // PR-Typen für zufällige Generierung
+  // PR types for random generation
   const prTypes = [
     'feat', 'fix', 'chore', 'docs', 'style', 'refactor', 'perf', 'test', 'build', 'ci'
   ];
   
-  // Zufällige PR-Namen
+  // Random PR names
   const prSubjects = [
     'Update dependencies',
     'Fix edge case in rendering',
@@ -39,38 +39,38 @@
     'Add caching layer'
   ];
   
-  // Zufällige Namen für PR-Autoren
+  // Random names for PR authors
   const authors = [
     'sarah.dev', 'mike-coder', 'elena_js', 'dev.master', 'coding_ninja', 
     'typescript_fan', 'webdev_pro', 'frontend_wizard', 'backend_guru', 'full_stack_dev',
     'ui_expert', 'bug_hunter', 'code_reviewer', 'perf_optimizer', 'security_expert'
   ];
   
-  // Zufällige ehrliche Beschreibungen für PRs
+  // Random honest descriptions for PRs
   const descriptions = [
-    'Ich habe keine Ahnung, ob das funktioniert',
-    'Bitte vor Freitag mergen, ich bin dann im Urlaub',
-    'Es funktioniert auf meinem Rechner',
-    'Ich weiß, der Code ist schlecht, aber er funktioniert',
-    'Keine Tests, aber sollte ok sein',
-    'Hot fix für den Prod-Bug',
-    'ASAP reviewen bitte!!!',
-    'Ich musste alle Abhängigkeiten updaten, hoffe, nichts ist kaputt',
-    'Funktioniert jetzt endlich',
-    'Diese Änderung sollte eigentlich nicht notwendig sein',
-    '4 AM Commit, Code könnte besser sein',
-    'Ich kann das später aufräumen',
-    'Legacy Code ist ein Albtraum',
-    'Bitte nicht zu genau anschauen',
-    'Keine Ahnung, warum das vorher nicht ging',
-    'Letzte Änderung vor dem Release',
-    'Lang ersehntes Feature, endlich fertig',
-    'Mergen und hoffen',
-    'Ich habe die Dokumentation aktualisiert... naja, ein bisschen',
-    'Kann jemand diesen Teil des Codes komplett neu schreiben?'
+    'I have no idea if this works',
+    'Please merge before Friday, I\'ll be on vacation',
+    'It works on my machine',
+    'I know the code is bad, but it works',
+    'No tests, but should be ok',
+    'Hot fix for the prod bug',
+    'Please review ASAP!!!',
+    'I had to update all dependencies, hope nothing breaks',
+    'Finally working now',
+    'This change shouldn\'t be necessary',
+    '4 AM commit, code could be better',
+    'I can clean this up later',
+    'Legacy code is a nightmare',
+    'Please don\'t look too closely',
+    'No clue why this wasn\'t working before',
+    'Last change before release',
+    'Long-awaited feature, finally done',
+    'Merge and hope',
+    'I updated the documentation... well, a bit',
+    'Can someone completely rewrite this part of the code?'
   ];
   
-  // Generiert einen neuen zufälligen PR
+  // Generates a new random PR
   function generateRandomPR() {
     const id = ++lastPrId;
     const type = prTypes[Math.floor(Math.random() * prTypes.length)];
@@ -86,35 +86,35 @@
       description,
       created: new Date().toISOString(),
       comments,
-      approved: Math.random() > 0.7, // 30% Chance, dass der PR genehmigt wurde
-      needsChanges: Math.random() < 0.2, // 20% Chance für Änderungsanforderungen
-      isUrgent: Math.random() < 0.15, // 15% Chance für "Dringend"
+      approved: Math.random() > 0.7, // 30% chance that the PR was approved
+      needsChanges: Math.random() < 0.2, // 20% chance for change requests
+      isUrgent: Math.random() < 0.15, // 15% chance for "Urgent"
     };
   }
   
-  // Fügt einen neuen PR zur Queue hinzu
+  // Adds a new PR to the queue
   function addRandomPR() {
     if (!$prQueueEnabled) return;
     
     const newPR = generateRandomPR();
     $pullRequests = [...$pullRequests, newPR];
     
-    // Wenn mehr als 50 PRs, entferne die ältesten
+    // If more than 50 PRs, remove the oldest
     if ($pullRequests.length > 50) {
       $pullRequests = $pullRequests.slice(-50);
     }
   }
   
-  // Startet die automatische PR-Hinzufügung
+  // Starts automatic PR addition
   function startPRQueue() {
-    // PRs alle 5-20 Sekunden hinzufügen
+    // Add PRs every 5-20 seconds
     prAddIntervalId = setInterval(() => {
       if ($prQueueEnabled) {
         addRandomPR();
       }
     }, Math.random() * 15000 + 5000); // 5-20s
     
-    // Initial einen PR hinzufügen
+    // Initially add a PR
     setTimeout(() => {
       if ($prQueueEnabled) {
         addRandomPR();
@@ -122,10 +122,10 @@
     }, 1000);
   }
   
-  // Formatiert das Datum für die Anzeige
+  // Format the date for display
   function formatDate(isoDate: string): string {
     const date = new Date(isoDate);
-    return date.toLocaleString('de-DE', {
+    return date.toLocaleString('en-US', {
       day: '2-digit',
       month: '2-digit',
       hour: '2-digit',
@@ -134,7 +134,7 @@
   }
   
   onMount(() => {
-    // PR-Queue starten, wenn sie aktiviert ist
+    // Start PR queue if it's enabled
     if ($prQueueEnabled) {
       startPRQueue();
     }
@@ -144,7 +144,7 @@
     clearInterval(prAddIntervalId);
   });
   
-  // Reaktion auf Änderungen des prQueueEnabled-Status
+  // React to changes in prQueueEnabled status
   $: {
     if ($prQueueEnabled) {
       if (!prAddIntervalId) {
@@ -159,7 +159,7 @@
 
 {#if $prQueueEnabled}
   <div class="pr-queue-section">
-    <h3>Pull Request-Queue ({$pullRequests.length})</h3>
+    <h3>Pull Request Queue ({$pullRequests.length})</h3>
     <div class="pr-queue-list">
       {#each $pullRequests as pr (pr.id)}
         <div class="pr-item" class:urgent={pr.isUrgent}>
@@ -167,7 +167,7 @@
             <div class="pr-title" title={pr.title}>
               #{pr.id}: {pr.title}
               {#if pr.isUrgent}
-                <span class="urgent-tag">DRINGEND</span>
+                <span class="urgent-tag">URGENT</span>
               {/if}
             </div>
             <div class="pr-author">{pr.author}</div>
@@ -176,13 +176,13 @@
           <div class="pr-footer">
             <div class="pr-date">{formatDate(pr.created)}</div>
             <div class="pr-stats">
-              <span class="pr-comments" title="Kommentare">💬 {pr.comments}</span>
+              <span class="pr-comments" title="Comments">💬 {pr.comments}</span>
               {#if pr.approved}
-                <span class="pr-approved" title="Genehmigt">✅</span>
+                <span class="pr-approved" title="Approved">✅</span>
               {:else if pr.needsChanges}
-                <span class="pr-needs-changes" title="Änderungen erforderlich">❌</span>
+                <span class="pr-needs-changes" title="Changes required">❌</span>
               {:else}
-                <span class="pr-pending" title="Review ausstehend">⏳</span>
+                <span class="pr-pending" title="Review pending">⏳</span>
               {/if}
             </div>
           </div>
@@ -190,7 +190,7 @@
       {/each}
       
       {#if $pullRequests.length === 0}
-        <div class="no-prs">Keine Pull Requests in der Queue</div>
+        <div class="no-prs">No pull requests in the queue</div>
       {/if}
     </div>
   </div>

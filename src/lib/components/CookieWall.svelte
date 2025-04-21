@@ -31,7 +31,7 @@
     { 
       id: 'tracking', 
       name: 'IP-Tracking©', 
-      description: 'Tracks your IP address and estimates the distance to your refrigerator within 3 meters accuracy.',
+      description: 'Tracks your IP address and estimates the distance to your refrigerator with an accuracy of 3 meters.',
       required: false,
       checked: false 
     },
@@ -80,14 +80,14 @@
     { 
       id: 'future', 
       name: 'Future Cookies²', 
-      description: 'Reserves the right to retroactively activate tracking methods developed in the future.',
+      description: 'Reserves the right to retroactively activate tracking methods yet to be developed.',
       required: false,
       checked: false 
     },
     { 
       id: 'gdpr', 
-      name: 'GDPR Bypass Cookies™', 
-      description: 'Technically sophisticated cookies that allow us to say we are GDPR compliant without actually being compliant.',
+      name: 'GDPR-Bypass Cookies™', 
+      description: 'Technically sophisticated cookies that allow us to say we are GDPR compliant without actually being so.',
       required: false,
       checked: false 
     },
@@ -100,14 +100,14 @@
     },
     { 
       id: 'dreams', 
-      name: 'Dream Analytics™', 
+      name: 'Dream-Analytics™', 
       description: 'Attempts to reconstruct your dreams from last night by analyzing your browsing behavior.',
       required: false,
       checked: false 
     },
     { 
       id: 'legal', 
-      name: 'Legal Disclaimer Cookies©', 
+      name: 'Legal-Disclaimer-Cookies©', 
       description: 'Makes all other cookies legal by simply writing "legal" in the label.',
       required: false,
       checked: false 
@@ -134,7 +134,7 @@
   
   // Save cookie consent and close wall
   function acceptCookies() {
-    // Check if all required cookies are activated
+    // Check if all required cookies are enabled
     const requiredChecked = options.every(option => !option.required || option.checked);
     
     if (!requiredChecked) {
@@ -149,7 +149,7 @@
     }
   }
   
-  // Reject cookie consent (deactivate all except required ones)
+  // Reject cookie consent (disable all except required)
   function rejectCookies() {
     options = options.map(option => ({
       ...option,
@@ -157,7 +157,7 @@
     }));
   }
   
-  // Check on load if consent has already been given
+  // Check if consent has already been given on load
   onMount(() => {
     if (typeof localStorage !== 'undefined') {
       const consent = localStorage.getItem('cookie-consent-given');
@@ -189,7 +189,7 @@
     <div class="cookie-container">
       <div class="cookie-header">
         <h2>Cookie Consent Required</h2>
-        <p>Please consent to the use of at least 15 different types of cookies before you can continue.</p>
+        <p>Please consent to the use of at least 15 different types of cookies before you can proceed.</p>
       </div>
       
       <div class="cookie-options">
@@ -221,7 +221,7 @@
       </div>
       
       <div class="cookie-notice">
-        <p>By clicking "Accept", you agree to the use of these cookies, as well as any future cookies we might come up with. The cookie policies may change at any time, especially after clicking "Accept".</p>
+        <p>By clicking "Accept", you agree to the use of these cookies, as well as any future cookies we might think of. The cookie policy may change at any time, especially after clicking "Accept".</p>
       </div>
       
       <div class="cookie-buttons">

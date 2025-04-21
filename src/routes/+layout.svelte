@@ -4,23 +4,23 @@
   import { complianceMode, safeMode, modalStore } from '$lib/stores';
   import CookieWall from '$lib/components/CookieWall.svelte';
   
-  // Zufälliges Auslösen des Cease & Desist Alerts
+  // Random triggering of the Cease & Desist Alert
   onMount(() => {
     const timeout = setTimeout(() => {
       if (!$modalStore.open) {
         modalStore.set({
           open: true,
           title: 'Cease & Desist!',
-          message: 'Ungenehmigte Aktivität erkannt. Bitte unterlassen Sie jede weitere Innovation.',
+          message: 'Unauthorized activity detected. Please refrain from any further innovation.',
           showCancel: false
         });
       }
-    }, Math.random() * 60000 + 30000); // Zwischen 30 und 90 Sekunden
+    }, Math.random() * 60000 + 30000); // Between 30 and 90 seconds
     
     return () => clearTimeout(timeout);
   });
 
-  // Compliance Mode Klasse auf body setzen
+  // Set Compliance Mode class on body
   $: if (typeof document !== 'undefined') {
     if ($complianceMode) {
       document.body.classList.add('compliance-mode');
@@ -29,7 +29,7 @@
     }
   }
   
-  // Safe Mode Klasse auf body setzen
+  // Set Safe Mode class on body
   $: if (typeof document !== 'undefined') {
     if ($safeMode) {
       document.body.classList.add('safe-mode');

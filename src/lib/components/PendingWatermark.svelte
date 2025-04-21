@@ -11,11 +11,11 @@
   let moveIntervalId: ReturnType<typeof setInterval>;
   let isBrowser = false;
   
-  // Automatische Bewegung des Wasserzeichens in zufälligen Intervallen
+  // Automatic movement of the watermark at random intervals
   function setupRandomMovement() {
     if (!isBrowser) return;
     
-    // Zufällige Bewegung alle 5-10 Sekunden
+    // Random movement every 5-10 seconds
     moveIntervalId = setInterval(() => {
       if ($watermarkEnabled && !isDragging) {
         moveToRandomPosition();
@@ -26,15 +26,15 @@
   function moveToRandomPosition() {
     if (!isBrowser) return;
     
-    // Maximale Koordinaten basierend auf Viewport
-    const maxX = window.innerWidth - 200; // Abzüglich Wasserzeichen-Breite
-    const maxY = window.innerHeight - 100; // Abzüglich Wasserzeichen-Höhe
+    // Maximum coordinates based on viewport
+    const maxX = window.innerWidth - 200; // Minus watermark width
+    const maxY = window.innerHeight - 100; // Minus watermark height
     
-    // Neue Position berechnen
+    // Calculate new position
     const newX = Math.max(0, Math.min(Math.random() * maxX, maxX));
     const newY = Math.max(0, Math.min(Math.random() * maxY, maxY));
     
-    // Animation zur neuen Position
+    // Animation to the new position
     animateMove(newX, newY);
   }
   
@@ -42,14 +42,14 @@
     const startX = x;
     const startY = y;
     const distance = Math.sqrt(Math.pow(targetX - startX, 2) + Math.pow(targetY - startY, 2));
-    const duration = Math.min(Math.max(distance * 10, 500), 2000); // 0.5-2s basierend auf Entfernung
+    const duration = Math.min(Math.max(distance * 10, 500), 2000); // 0.5-2s based on distance
     const startTime = performance.now();
     
     function step(currentTime: number) {
       const elapsedTime = currentTime - startTime;
       const progress = Math.min(elapsedTime / duration, 1);
       
-      // Easing-Funktion für sanfte Bewegung
+      // Easing function for smooth movement
       const easedProgress = easeInOutQuad(progress);
       
       x = startX + (targetX - startX) * easedProgress;
@@ -63,12 +63,12 @@
     requestAnimationFrame(step);
   }
   
-  // Easing-Funktion für sanfte Animation
+  // Easing function for smooth animation
   function easeInOutQuad(t: number): number {
     return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
   }
   
-  // Drag & Drop Funktionen
+  // Drag & Drop functions
   function handleMouseDown(event: MouseEvent) {
     if (!$watermarkEnabled || !isBrowser) return;
     
@@ -76,7 +76,7 @@
     offsetX = event.clientX - x;
     offsetY = event.clientY - y;
     
-    // Stiländerung während des Ziehens
+    // Style change during dragging
     if (watermarkElement) {
       watermarkElement.style.cursor = 'grabbing';
       watermarkElement.style.opacity = '0.8';
@@ -99,7 +99,7 @@
     
     isDragging = false;
     
-    // Stil zurücksetzen
+    // Reset style
     if (watermarkElement) {
       watermarkElement.style.cursor = 'grab';
       watermarkElement.style.opacity = '1';
@@ -107,17 +107,17 @@
   }
   
   onMount(() => {
-    // Browser-Flag setzen, da onMount nur im Browser läuft
+    // Set browser flag, since onMount only runs in the browser
     isBrowser = true;
     
-    // Event-Handler für Drag & Drop
+    // Event handlers for drag & drop
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('mouseup', handleMouseUp);
     
-    // Automatische Bewegung starten
+    // Start automatic movement
     setupRandomMovement();
     
-    // Initiale Position zufällig setzen
+    // Set initial position randomly
     moveToRandomPosition();
   });
   
@@ -139,13 +139,13 @@
     on:keydown={(e) => e.key === 'Escape' && ($watermarkEnabled = false)}
     tabindex="0"
     role="button"
-    aria-label="Patent Pending Wasserzeichen (ziehbar)"
+    aria-label="Patent Pending watermark (draggable)"
   >
     <div class="watermark-text">
       PATENT<br>PENDING
     </div>
     <div class="watermark-subtext">
-      STRENG PATENTRECHTLICH GESCHÜTZT
+      STRICTLY PROTECTED BY PATENT LAW
     </div>
   </div>
 {/if}

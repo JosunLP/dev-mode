@@ -7,11 +7,11 @@
   let isVisible = false;
   let previousWhisperIndex = -1;
   
-  // Zeigt einen zufälligen "Flüster"-Hinweis an
+  // Shows a random "whisper" hint
   function showRandomWhisper() {
-    if ($complianceMode) return; // Im Compliance-Modus keine Hinweise anzeigen
+    if ($complianceMode) return; // Don't show hints in compliance mode
     
-    // Zufälligen Hinweis auswählen (nicht den gleichen wie zuvor)
+    // Select a random hint (not the same as before)
     let randomIndex;
     do {
       randomIndex = Math.floor(Math.random() * $licenseWhispers.length);
@@ -20,25 +20,25 @@
     previousWhisperIndex = randomIndex;
     $currentWhisper = $licenseWhispers[randomIndex];
     
-    // Hinweis anzeigen
+    // Show hint
     isVisible = true;
     
-    // Nach einigen Sekunden ausblenden
+    // Hide after a few seconds
     setTimeout(() => {
       isVisible = false;
     }, 5000);
   }
   
   onMount(() => {
-    // In zufälligen Intervallen (20-40s) Hinweise anzeigen
+    // Show hints at random intervals (20-40s)
     whisperIntervalId = setInterval(() => {
-      // Nur wenn die App nicht im Compliance-Modus ist
+      // Only if the app is not in compliance mode
       if (!$complianceMode) {
         showRandomWhisper();
       }
     }, Math.random() * 20000 + 20000); // 20-40s
     
-    // Ersten Hinweis nach kurzer Verzögerung anzeigen
+    // Show first hint after a short delay
     setTimeout(() => {
       if (!$complianceMode) {
         showRandomWhisper();

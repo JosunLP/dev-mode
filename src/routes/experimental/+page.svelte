@@ -1,11 +1,11 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   
-  // Animation für das Blinken des Fehler-Codes
+  // Animation for blinking error code
   let blinking = false;
   
   onMount(() => {
-    // Starte den Blink-Effekt für den Fehlercode
+    // Start the blinking effect for the error code
     const blinkInterval = setInterval(() => {
       blinking = !blinking;
     }, 800);
@@ -32,12 +32,12 @@
   </div>
   
   <div class="error-message">
-    <p>Dieses Feature ist leider im Patentamt verloren gegangen.</p>
-    <p>Unsere Patentanwälte suchen gerade fieberhaft danach, aber es könnte in einem Stapel von Anmeldungen untergegangen sein.</p>
-    <p>Bitte versuchen Sie es später erneut, oder reichen Sie eine neue Feature-Anfrage mit 37 Unterschriften in dreifacher Ausfertigung ein.</p>
+    <p>This feature has unfortunately been lost at the patent office.</p>
+    <p>Our patent attorneys are frantically searching for it, but it might have been buried under a stack of applications.</p>
+    <p>Please try again later, or submit a new feature request with 37 signatures in triplicate.</p>
   </div>
   
-  <a href="/" class="back-link">Zurück zum Dashboard</a>
+  <a href="/" class="back-link">Back to Dashboard</a>
 </div>
 
 <style lang="scss">

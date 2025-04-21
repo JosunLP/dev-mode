@@ -7,12 +7,12 @@
   let effectActive = false;
   let isBrowser = false;
   
-  // Für den Export als Komponenten-API
+  // For export as component API
   export function triggerEffect() {
     if (!isBrowser || effectActive) return;
     startEffect();
     
-    // Effekt nach einigen Sekunden automatisch beenden
+    // Automatically end effect after a few seconds
     setTimeout(() => {
       if (effectActive) {
         stopEffect();
@@ -24,10 +24,10 @@
     if (!isBrowser || effectActive) return;
     effectActive = true;
     
-    // Canvas Größe an Viewport anpassen
+    // Adjust canvas size to viewport
     resizeCanvas();
     
-    // Start der Animation
+    // Start the animation
     animatePixels();
   }
   
@@ -37,7 +37,7 @@
       cancelAnimationFrame(animationId);
     }
     
-    // Canvas löschen
+    // Clear canvas
     if (ctx) {
       ctx.clearRect(0, 0, canvasElement.width, canvasElement.height);
     }
@@ -53,23 +53,23 @@
   function animatePixels() {
     if (!isBrowser || !canvasElement || !ctx || !effectActive) return;
     
-    // Aktuelles Canvas leeren
+    // Clear current canvas
     ctx.clearRect(0, 0, canvasElement.width, canvasElement.height);
     
-    // KI-basierte Pixel-Randomisierung (satirisch)
+    // AI-based pixel randomization (satirical)
     const pixelSize = 5;
     const cols = Math.ceil(canvasElement.width / pixelSize);
     const rows = Math.ceil(canvasElement.height / pixelSize);
     
     for (let y = 0; y < rows; y++) {
       for (let x = 0; x < cols; x++) {
-        // Nur etwa 15% der Pixel anzeigen für einen subtilen Effekt
+        // Show only about 15% of pixels for a subtle effect
         if (Math.random() > 0.85) {
-          // KI-generierte Farben (satirisch)
+          // AI-generated colors (satirical)
           const r = Math.floor(Math.random() * 255);
           const g = Math.floor(Math.random() * 255);
           const b = Math.floor(Math.random() * 255);
-          const a = Math.random() * 0.7; // halbtransparent
+          const a = Math.random() * 0.7; // semi-transparent
           
           ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${a})`;
           ctx.fillRect(x * pixelSize, y * pixelSize, pixelSize, pixelSize);
@@ -77,33 +77,33 @@
       }
     }
     
-    // Nächster Frame, wenn Effekt noch aktiv
+    // Next frame if effect is still active
     if (effectActive) {
       animationId = requestAnimationFrame(animatePixels);
     }
   }
   
   function handleKeydown(e: KeyboardEvent) {
-    // ESC-Taste beendet den Effekt
+    // ESC key stops the effect
     if (e.key === "Escape" && effectActive) {
       stopEffect();
     }
   }
   
   onMount(() => {
-    // Setzen wir den Browser-Flag, da onMount nur im Browser ausgeführt wird
+    // Set the browser flag, as onMount is only executed in the browser
     isBrowser = true;
     
     if (canvasElement) {
       ctx = canvasElement.getContext('2d')!;
       
-      // Initial Canvas-Größe setzen
+      // Initially set canvas size
       resizeCanvas();
       
-      // Event-Listener für Fenstergrößenänderungen
+      // Event listener for window resize
       window.addEventListener('resize', resizeCanvas);
       
-      // Keyboard-Listener für ESC-Taste
+      // Keyboard listener for ESC key
       window.addEventListener('keydown', handleKeydown);
     }
   });

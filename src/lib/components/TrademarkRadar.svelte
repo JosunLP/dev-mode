@@ -24,10 +24,10 @@
     
     isScanning = true;
     
-    // Perform initial check immediately
+    // Perform first check immediately
     scanForTrademarkWords();
     
-    // Regularly search for more trademark words (every 3 seconds)
+    // Regularly search for more trademarked words (every 3 seconds)
     scanIntervalId = setInterval(() => {
       if ($trademarkRadarActive) {
         scanForTrademarkWords();
@@ -43,10 +43,10 @@
   
   // Searches the DOM for potentially protected words
   function scanForTrademarkWords() {
-    // Get list of words to monitor from the store
+    // Get the list of words to monitor from the store
     const wordsToScan = $markedWords.map(item => item.word.toLowerCase());
     
-    // Find text nodes in DOM
+    // Find text nodes in the DOM
     const walker = document.createTreeWalker(
       document.body,
       NodeFilter.SHOW_TEXT,
@@ -57,7 +57,7 @@
     let foundWords = new Set();
     
     while ((node = walker.nextNode())) {
-      // Ignore Script and Style elements
+      // Ignore script and style elements
       const parentElement = node.parentElement;
       if (
         parentElement && 
@@ -92,7 +92,7 @@
     $markedWords = $markedWords.map(item => ({ ...item, marked: false }));
   }
   
-  // In response to changes in safeMode
+  // As a reaction to changes in safeMode
   $: {
     if ($safeMode && !$trademarkRadarActive) {
       // SafeMode automatically activates the Trademark Radar
@@ -104,7 +104,7 @@
   }
   
   onMount(() => {
-    // Automatically start if TrademarkRadar is already active
+    // Automatically start if the TrademarkRadar is already active
     if ($trademarkRadarActive) {
       startScanning();
     }
@@ -136,7 +136,7 @@
   <div class="tooltip">
     <span class="tooltip-text">Activates or deactivates the trademark word radar</span>
     <button class="btn" on:click={toggleTrademarkRadar}>
-      {$trademarkRadarActive ? 'Disable' : 'Enable'}
+      {$trademarkRadarActive ? 'Deactivate' : 'Activate'}
     </button>
   </div>
 </div>

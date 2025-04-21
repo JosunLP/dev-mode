@@ -56,13 +56,13 @@ export const buildProgress = writable<number>(0);
 // License Whisperer Store
 export const licenseWhispers = writable<string[]>([
   "Remember that every line of code you write could potentially be patented.",
-  "This function might be protected by 3 patents. Check before use.",
-  "Have you read the license agreement in full? There are 24 appendices.",
+  "This function might be protected by 3 patents. Check before using.",
+  "Have you read the license agreement completely? There are 24 appendices.",
   "Remember: 'Hello World' is a protected expression in 14 jurisdictions.",
   "The use of for-loops is subject to Corporate Coding Policy §27b.",
   "Warning: Using open-source code may lead to unwanted freedom.",
-  "Are your variable names unique enough? Check our Trademark database.",
-  "Fun Fact: By reading this message, you've accepted 4 license agreements."
+  "Are your variable names sufficiently unique? Check our trademark database.",
+  "Fun Fact: By reading this message, you have accepted 4 license agreements."
 ]);
 export const currentWhisper = writable<string>("");
 
