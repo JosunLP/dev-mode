@@ -38,10 +38,8 @@
       class="modal-content" 
       bind:this={modalElement}
       transition:fly={{ y: -30, duration: 300 }}
-      on:click|stopPropagation={() => {}}
-      tabindex="0"
       aria-labelledby="modal-title"
-      role="document"
+      role="dialog"
     >
       <div class="modal-header">
         <h2 id="modal-title" class="trademark-text">{$modalStore.title}</h2>
@@ -140,12 +138,12 @@
     }
     
     // Stile für die Protestnote
-    .protest-paragraph {
+    :global(.protest-paragraph) {
       margin-bottom: 1rem;
       line-height: 1.6;
     }
     
-    .protest-highlight {
+    :global(.protest-highlight) {
       font-weight: bold;
       padding: 0.5rem;
       background-color: rgba(0, 120, 212, 0.1);
@@ -154,12 +152,12 @@
       margin-right: -0.5rem;
     }
     
-    .protest-demand {
+    :global(.protest-demand) {
       font-weight: bold;
       color: #f14c4c;
     }
     
-    .protest-signature {
+    :global(.protest-signature) {
       margin-top: 2rem;
       font-style: italic;
       border-top: 1px solid #333;

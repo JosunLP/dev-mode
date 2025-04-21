@@ -49,11 +49,12 @@
     <span class="build-icon">🏗️</span> Build Status
   </div>
   
-  <div 
+  <button 
     class="progress-container-wrapper"
-    tabindex="0"
+    type="button"
+    aria-label="Show build information"
     on:mouseenter={showTooltip}
-    on:keydown={(e) => e.key === 'Enter' && showTooltip()}
+    on:click={showTooltip}
   >
     <div 
       class="progress-container" 
@@ -67,7 +68,7 @@
     {#if tooltipVisible}
       <div class="tooltip-text">The build will never complete.</div>
     {/if}
-  </div>
+  </button>
   
   <div class="build-info">
     <div class="build-label">
@@ -116,11 +117,15 @@
     margin-top: 0.5rem;
     font-size: 0.9rem;
   }
-  
   .progress-container-wrapper {
     position: relative;
     cursor: pointer;
     margin-bottom: 0.5rem;
+    background: none;
+    border: none;
+    padding: 0;
+    width: 100%;
+    display: block;
   }
   
   .progress-container {
