@@ -74,6 +74,41 @@
       trademarkEnabled = false;
     }
   }
+
+  // Protest Note Modal
+  function openProtestNoteModal() {
+    modalStore.open(
+      'Protest Note - Against Trademark Trolling',
+      `Dear legal departments and corporate control bots,
+
+we, the developers of this world, hereby solemnly declare:
+
+"Dev Mode" belongs to everyone! Since time immemorial, we developers have been activating secret superpowers with "Dev Mode" to hunt bugs, get coffee and strangle pull requests.
+
+A trademark application for "Dev Mode" is like trying to protect the word "breath" because you want to have air under your control.
+
+We demand: Immediate release of all ™ symbols! An end to the patented pixel glitch!
+
+Action: From now on, every user of this project can mark all terms in "™safe mode" - and thus we preserve freedom.
+
+Whenever you are threatened with a warning, remember this text.
+
+In programmatic protest,
+Your Dev Mode Team™`,
+      false
+    );
+  }
+
+  // Watch for Safe Mode and Trademark Radar combination to trigger protest
+  $: if ($safeMode && $trademarkRadarActive && !$complianceMode) {
+    // Absurde Konfiguration: wenn Safe Mode und Trademark Radar beide aktiv sind
+    // und nicht im Compliance Mode, zeige die Protestnote automatisch an
+    setTimeout(() => {
+      if (!$modalStore.open && $safeMode && $trademarkRadarActive && !$complianceMode) {
+        openProtestNoteModal();
+      }
+    }, 1500);
+  }
 </script>
 
 <div class="dashboard">
@@ -238,6 +273,9 @@
   <footer class="panel dashboard-footer">
     <p>© 2025 Dev Mode - All Rights Reserved</p>
     <p>Version 0.0.1</p>
+    <p class="footer-links">
+      <a href="#" on:click|preventDefault={openProtestNoteModal} class="protest-link">Protest Note</a>
+    </p>
   </footer>
 </div>
 
@@ -278,6 +316,20 @@
     
     p {
       margin: 0.25rem 0;
+    }
+    
+    .footer-links {
+      margin-top: 0.5rem;
+      
+      .protest-link {
+        color: #0078d4;
+        text-decoration: none;
+        cursor: pointer;
+        
+        &:hover {
+          text-decoration: underline;
+        }
+      }
     }
   }
   
