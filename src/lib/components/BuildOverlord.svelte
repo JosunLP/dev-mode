@@ -50,16 +50,20 @@
   </div>
   
   <div 
-    class="progress-container" 
+    class="progress-container-wrapper"
+    tabindex="0"
     on:mouseenter={showTooltip}
     on:keydown={(e) => e.key === 'Enter' && showTooltip()}
-    role="progressbar" 
-    aria-valuenow={Math.round($buildProgress)} 
-    aria-valuemin="0" 
-    aria-valuemax="100"
-    tabindex="0"
   >
-    <div class="progress-bar" style="width: {$buildProgress}%"></div>
+    <div 
+      class="progress-container" 
+      role="progressbar" 
+      aria-valuenow={Math.round($buildProgress)} 
+      aria-valuemin="0" 
+      aria-valuemax="100"
+    >
+      <div class="progress-bar" style="width: {$buildProgress}%"></div>
+    </div>
     {#if tooltipVisible}
       <div class="tooltip-text">The build will never complete.</div>
     {/if}
@@ -113,13 +117,19 @@
     font-size: 0.9rem;
   }
   
+  .progress-container-wrapper {
+    position: relative;
+    cursor: pointer;
+    margin-bottom: 0.5rem;
+  }
+  
   .progress-container {
     height: 8px;
     background-color: #333;
     border-radius: 4px;
     overflow: hidden;
-    margin-bottom: 0.5rem;
     position: relative;
+    width: 100%;
   }
   
   .progress-bar {

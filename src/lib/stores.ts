@@ -12,6 +12,7 @@ type ModalState = {
   title: string;
   message: string;
   showCancel: boolean;
+  isHtml: boolean;
 };
 
 const createModalStore = () => {
@@ -19,7 +20,8 @@ const createModalStore = () => {
     open: false,
     title: '',
     message: '',
-    showCancel: false
+    showCancel: false,
+    isHtml: false
   };
   
   const { subscribe, set, update } = writable<ModalState>(defaultState);
@@ -28,12 +30,13 @@ const createModalStore = () => {
     subscribe,
     set,
     update,
-    open: (title: string, message: string, showCancel = false) => {
+    open: (title: string, message: string, showCancel = false, isHtml = false) => {
       set({
         open: true,
         title,
         message,
-        showCancel
+        showCancel,
+        isHtml
       });
     },
     close: () => {

@@ -30,6 +30,7 @@
     on:keydown={handleKeydown}
     role="dialog"
     aria-modal="true"
+    tabindex="-1"
     transition:fade={{ duration: 200 }}
   >
     <!-- Modal Content -->
@@ -38,8 +39,9 @@
       bind:this={modalElement}
       transition:fly={{ y: -30, duration: 300 }}
       on:click|stopPropagation={() => {}}
-      tabindex="-1"
+      tabindex="0"
       aria-labelledby="modal-title"
+      role="document"
     >
       <div class="modal-header">
         <h2 id="modal-title" class="trademark-text">{$modalStore.title}</h2>
@@ -51,7 +53,11 @@
       </div>
       
       <div class="modal-body">
-        <p>{$modalStore.message}</p>
+        {#if $modalStore.isHtml}
+          {@html $modalStore.message}
+        {:else}
+          <p>{$modalStore.message}</p>
+        {/if}
       </div>
       
       <div class="modal-footer">
@@ -125,8 +131,39 @@
     overflow-y: auto;
     
     p {
-      margin: 0;
+      margin: 0 0 1rem 0;
       line-height: 1.6;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+    
+    // Stile für die Protestnote
+    .protest-paragraph {
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+    
+    .protest-highlight {
+      font-weight: bold;
+      padding: 0.5rem;
+      background-color: rgba(0, 120, 212, 0.1);
+      border-left: 3px solid #0078d4;
+      margin-left: -0.5rem;
+      margin-right: -0.5rem;
+    }
+    
+    .protest-demand {
+      font-weight: bold;
+      color: #f14c4c;
+    }
+    
+    .protest-signature {
+      margin-top: 2rem;
+      font-style: italic;
+      border-top: 1px solid #333;
+      padding-top: 1rem;
     }
   }
   
